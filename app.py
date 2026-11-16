@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# Define radio alias safely to prevent URL scrubbing issues
+# Define radio alias safely to prevent automated URL scrubbing
 st_radio = getattr(st, "radio")
 
 st.set_page_config(
@@ -65,7 +65,7 @@ st.sidebar.markdown("""
 # --- 3-MONTH SIMULATED CAMPAIGN DATASET ---
 campaign_data = [
     {
-        "Campaign Name": "RSA - High-Intent Solar Search (Phrase/Exact)",
+        "Campaign Name": "RSA - Phrase/Exact Match",
         "Channel": "Paid Search",
         "Ad Format": "Responsive Search Ad",
         "Spend ($)": 10000,
@@ -82,7 +82,7 @@ campaign_data = [
         "Status": "Top Performer"
     },
     {
-        "Campaign Name": "RSA - Broad Match 'Solar Energy' (Unfiltered)",
+        "Campaign Name": "RSA - Broad Match",
         "Channel": "Paid Search",
         "Ad Format": "Responsive Search Ad",
         "Spend ($)": 8000,
@@ -99,7 +99,7 @@ campaign_data = [
         "Status": "High Cost / Broad Leak"
     },
     {
-        "Campaign Name": "Display - Promotional Banner Ads (Offer Clickbait)",
+        "Campaign Name": "Display",
         "Channel": "Display Network",
         "Ad Format": "Image / Banner Ad",
         "Spend ($)": 5000,
@@ -116,7 +116,7 @@ campaign_data = [
         "Status": "Disastrous Clickbait Waste"
     },
     {
-        "Campaign Name": "YouTube - Cinematic TV-Style Video Ad",
+        "Campaign Name": "YouTube - Cinematic Video Ad",
         "Channel": "Video (YouTube)",
         "Ad Format": "Skippable In-Stream Video",
         "Spend ($)": 4000,
@@ -133,7 +133,7 @@ campaign_data = [
         "Status": "98%+ Skip Rate / Weak Hook"
     },
     {
-        "Campaign Name": "Performance Max (PMax) - Automated Mix",
+        "Campaign Name": "Performance Max (PMax)",
         "Channel": "Cross-Channel PMax",
         "Ad Format": "Automated Multi-Asset",
         "Spend ($)": 3000,
@@ -239,67 +239,93 @@ with tab3:
 # --- TAB 4: SEARCH TERMS & QUALITY AUDIT ---
 with tab4:
     st.header("4. Search Query & Keyword Audit")
-    st.write("Review the exact search queries typed into Google that triggered SunPower's search ads.")
+    st.write("Review the exact search queries typed into Google that triggered SunPower's search ads, along with their Google Quality Score rating based on ad relevance.")
     
     query_data = [
-        {"Search Query Typed by User": "solar panel installation cost san diego", "Matched Keyword": "solar panel cost", "Match Type": "Phrase", "Clicks": 850, "Spend ($)": 3400, "Leads": 42, "CPL ($)": 80.95, "Intent Quality": "High Intent / Converting"},
-        {"Search Query Typed by User": "best residential solar warranty california", "Matched Keyword": "solar warranty", "Match Type": "Exact", "Clicks": 620, "Spend ($)": 2480, "Leads": 31, "CPL ($)": 80.00, "Intent Quality": "High Intent / Converting"},
-        {"Search Query Typed by User": "solar panel subsidies government rebate", "Matched Keyword": "solar energy", "Match Type": "Broad", "Clicks": 2100, "Spend ($)": 6300, "Leads": 2, "CPL ($)": 3150.00, "Intent Quality": "Unqualified / Misinformed"},
-        {"Search Query Typed by User": "solar panel installer career opportunities", "Matched Keyword": "solar energy", "Match Type": "Broad", "Clicks": 950, "Spend ($)": 2850, "Leads": 0, "CPL ($)": 0.00, "Intent Quality": "Job Seeker Waste"},
-        {"Search Query Typed by User": "how to assemble home solar kit", "Matched Keyword": "solar energy", "Match Type": "Broad", "Clicks": 1200, "Spend ($)": 3600, "Leads": 0, "CPL ($)": 0.00, "Intent Quality": "DIY Hobbyist Waste"}
+        {"Search Query Typed by User": "solar panel installation cost san diego", "Matched Keyword": "solar panel cost", "Match Type": "Phrase", "Clicks": 850, "Spend ($)": 3400, "Leads": 42, "CPL ($)": 80.95, "Quality Score": "10/10 (High)"},
+        {"Search Query Typed by User": "best residential solar warranty california", "Matched Keyword": "solar warranty", "Match Type": "Exact", "Clicks": 620, "Spend ($)": 2480, "Leads": 31, "CPL ($)": 80.00, "Quality Score": "9/10 (High)"},
+        {"Search Query Typed by User": "solar panel subsidies government rebate", "Matched Keyword": "solar energy", "Match Type": "Broad", "Clicks": 2100, "Spend ($)": 6300, "Leads": 2, "CPL ($)": 3150.00, "Quality Score": "3/10 (Low)"},
+        {"Search Query Typed by User": "solar panel installer career opportunities", "Matched Keyword": "solar energy", "Match Type": "Broad", "Clicks": 950, "Spend ($)": 2850, "Leads": 0, "CPL ($)": 0.00, "Quality Score": "2/10 (Low)"},
+        {"Search Query Typed by User": "how to assemble home solar kit", "Matched Keyword": "solar energy", "Match Type": "Broad", "Clicks": 1200, "Spend ($)": 3600, "Leads": 0, "CPL ($)": 0.00, "Quality Score": "2/10 (Low)"}
     ]
     st.table(pd.DataFrame(query_data))
 
 # --- TAB 5: STUDENT DIAGNOSTIC & OPTIMIZATION CHALLENGE ---
 with tab5:
     st.header("5. Student Optimization Challenge")
-    st.write("Analyze the 3-month GA4 data above, diagnose the major bottlenecks, and submit your optimization strategy for Month 4.")
+    st.write("Analyze the 3-month GA4 data above, diagnose the major bottlenecks, optimize keywords and negative keyword lists, and reallocate monthly budget for Month 4.")
     
     st.subheader("📋 Step 1: Diagnose Campaign Waste")
     q1 = st.multiselect(
         "Which campaign tactics resulted in major budget waste? (Select all that apply):",
         [
-            "Display Promotional Banner Ads (98%+ Bounce Rate & 0 Sales)",
+            "Display Banner Ads (98%+ Bounce Rate & 0 Sales)",
             "Broad Match Search Keywords without negative lists ('subsidies', 'career', 'kit')",
             "TV-Style YouTube Commercials with 98%+ Skip Rate and no 5-second hook",
             "Geo-targeting set to 'Presence or Interest' allowing $4,000 leak to non-target states",
             "Responsive Search Ads on High-Intent Phrase/Exact match terms"
         ]
     )
+
+    st.subheader("🔍 Step 2: Keyword Optimization & Negative Keyword Shield")
+    st.write("To prevent non-converting clicks and boost Quality Scores, select the negative keywords that must be added to SunPower's campaign account:")
     
-    st.subheader("💡 Step 2: Propose Your Month 4 Budget Re-Allocation ($10,000/mo)")
-    c_b1, c_b2, c_b3, c_b4 = st.columns(4)
-    b_rsa = c_b1.number_input("High-Intent RSA Search ($):", value=6000, step=500)
-    b_pmax = c_b2.number_input("Performance Max (Presence Only) ($):", value=2500, step=500)
-    b_yt = c_b3.number_input("YouTube (Educational Video 6 Hook) ($):", value=1500, step=500)
-    b_disp = c_b4.number_input("Display Banner Ads ($):", value=0, step=500)
+    neg_selected = st.multiselect(
+        "Select Negative Keywords to Add:",
+        [
+            "jobs", 
+            "careers", 
+            "diy", 
+            "kit", 
+            "free", 
+            "subsidies", 
+            "repair", 
+            "residential solar installation"
+        ],
+        default=["jobs", "careers", "diy", "kit"]
+    )
     
-    total_reallocated = b_rsa + b_pmax + b_yt + b_disp
+    st.caption("💡 *Adding negative terms blocks wasteful searches like 'solar installer career opportunities' or 'home solar kit'.*")
+    
+    st.subheader("💰 Step 3: Propose Month 4 Budget Re-Allocation ($10,000/mo)")
+    st.write("Shift funds away from low-performing channels like **Display** and reallocate into high-converting channels, including **Local Service Ads (LSA)**.")
+    
+    c_b1, c_b2, c_b3, c_b4, c_b5 = st.columns(5)
+    b_rsa = c_b1.number_input("High-Intent RSA Search ($):", value=5000, step=500)
+    b_lsa = c_b2.number_input("Local Service Ads (LSA) ($):", value=2500, step=500)
+    b_pmax = c_b3.number_input("Performance Max (Presence Only) ($):", value=1500, step=500)
+    b_yt = c_b4.number_input("YouTube (Video 6 Hook) ($):", value=1000, step=500)
+    b_disp = c_b5.number_input("Display Banner Ads ($):", value=0, step=500)
+    
+    total_reallocated = b_rsa + b_lsa + b_pmax + b_yt + b_disp
     
     if total_reallocated == 10000:
         st.success(f"✅ Budget Balanced: ${total_reallocated:,.2f} / $10,000.00")
     else:
         st.warning(f"⚠️ Total budget reallocation must equal $10,000 (Currently ${total_reallocated:,.2f})")
 
-    st.subheader("📝 Step 3: Executive Rationale & Strategy Note")
+    st.subheader("📝 Step 4: Executive Rationale & Strategy Note")
     student_notes = st.text_area(
-        "Explain your diagnostic findings and strategic changes for SunPower's CMO:",
-        placeholder="e.g., We recommend immediately pausing the Clickbait Display ads and Broad Match search terms. Reallocate $6,000/mo to High-Intent RSA phrase match keywords..."
+        "Explain your diagnostic findings, negative keyword additions, and budget shift rationale for SunPower's CMO:",
+        placeholder="e.g., We recommend completely eliminating Display ad spend and shifting $2,500/mo into Local Service Ads (LSAs) to capture direct phone leads..."
     )
     
     if st.button("Submit GA4 Campaign Audit & Recommendations"):
         correct_diag = (
-            "Display Promotional Banner Ads (98%+ Bounce Rate & 0 Sales)" in q1 and
+            "Display Banner Ads (98%+ Bounce Rate & 0 Sales)" in q1 and
             "Broad Match Search Keywords without negative lists ('subsidies', 'career', 'kit')" in q1 and
             "TV-Style YouTube Commercials with 98%+ Skip Rate and no 5-second hook" in q1 and
             "Geo-targeting set to 'Presence or Interest' allowing $4,000 leak to non-target states" in q1
         )
         
-        if correct_diag and total_reallocated == 10000 and len(student_notes.strip()) > 30:
+        has_core_negatives = all(term in neg_selected for term in ["jobs", "careers", "diy", "kit"])
+        
+        if correct_diag and has_core_negatives and total_reallocated == 10000 and len(student_notes.strip()) > 30:
             st.balloons()
-            st.success("🎉 EXCELLENT GA4 AUDIT! You correctly identified all 4 campaign bottlenecks!")
+            st.success("🎉 EXCELLENT GA4 AUDIT! You correctly identified all campaign bottlenecks, established an active Negative Keyword Shield, and reallocated funds into Local Service Ads!")
             
-            proj_leads = int((b_rsa / 100) + (b_pmax / 200) + (b_yt / 300))
+            # Projection calculation incorporating LSA efficiency (~$125 CPL)
+            proj_leads = int((b_rsa / 100) + (b_lsa / 125) + (b_pmax / 200) + (b_yt / 250))
             proj_sales = int(proj_leads * 0.10)
             proj_rev = proj_sales * 25000
             proj_roas = proj_rev / 10000
@@ -312,4 +338,4 @@ with tab5:
             - **Projected Monthly ROAS:** **{proj_roas:.2f}x** (Up from 10.0x blended!)
             """)
         else:
-            st.error("🚨 Audit Incomplete or Sub-optimal! Check that you selected all 4 major waste sources, balanced your budget to exactly $10,000, and provided detailed executive notes.")
+            st.error("🚨 Audit Incomplete or Sub-optimal! Ensure you selected all 4 major waste sources, included negative keywords ('jobs', 'careers', 'diy', 'kit'), balanced your budget to exactly $10,000, and provided executive notes.")
