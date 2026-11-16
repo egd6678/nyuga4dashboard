@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# Define radio alias safely
+# Define radio alias safely to prevent URL scrubbing issues
 st_radio = getattr(st, "radio")
 
 st.set_page_config(
@@ -162,8 +162,8 @@ total_revenue = df_campaigns["Total Revenue ($)"].sum()
 blended_cpl = total_spend / total_leads if total_leads > 0 else 0
 blended_roas = total_revenue / total_spend if total_spend > 0 else 0
 
-# --- TABS FOR GA4 ANALYSIS ---
-tab_summary, tab_campaigns, tab_geo, tab_keywords, tab_challenge = st.tabs([
+# --- TAB NAVIGATION ---
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📊 Executive Summary", 
     "🎯 Campaign & Channel Acquisition", 
     "📍 Location & Geo-Targeting Audit", 
@@ -172,7 +172,7 @@ tab_summary, tab_campaigns, tab_geo, tab_keywords, tab_challenge = st.tabs([
 ])
 
 # --- TAB 1: EXECUTIVE SUMMARY ---
-with tab_summary:
+with tab1:
     st.header("1. 3-Month Performance Overview")
     st.write("Review the high-level GA4 metrics for SunPower Solutions over the past 90 days. Pay attention to how macro numbers can hide severe underlying inefficiencies.")
     
